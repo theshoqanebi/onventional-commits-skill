@@ -1,0 +1,18 @@
+{
+  "description": "Block git commit commands whose message violates Conventional Commits 1.0.0.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/skills/conventional-commits/scripts/claude-hook.mjs"],
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

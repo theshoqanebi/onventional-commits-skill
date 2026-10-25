@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "conventional-commits",
+  "version": "1.0.0",
+  "description": "Strict Conventional Commits 1.0.0 enforcement: a skill, a /commit command, a PreToolUse hook that blocks non-conforming messages, and changelog plus SemVer helpers.",
+  "author": {
+    "name": "theshoqanebi",
+    "url": "https://github.com/theshoqanebi"
+  },
+  "homepage": "https://github.com/theshoqanebi/conventional-commits-skill#readme",
+  "repository": "https://github.com/theshoqanebi/conventional-commits-skill",
+  "license": "MIT",
+  "keywords": [
+    "conventional-commits",
+    "commit-message",
+    "git",
+    "semver",
+    "changelog"
+  ]
+}

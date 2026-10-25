@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "conventional-commits",
+  "description": "Strict Conventional Commits 1.0.0 enforcement for git: blocks non-conforming commit messages and adds changelog plus SemVer helpers.",
+  "owner": {
+    "name": "theshoqanebi",
+    "url": "https://github.com/theshoqanebi"
+  },
+  "plugins": [
+    {
+      "name": "conventional-commits",
+      "source": "./",
+      "description": "Strict Conventional Commits 1.0.0 enforcement for git: blocks non-conforming commit messages and adds changelog plus SemVer helpers.",
+      "version": "1.0.0",
+      "license": "MIT",
+      "keywords": [
+        "conventional-commits",
+        "commit-message",
+        "git",
+        "semver"
+      ]
+    }
+  ]
+}

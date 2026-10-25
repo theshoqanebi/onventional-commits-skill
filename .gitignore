@@ -1,0 +1,18 @@
+node_modules/
+npm-debug.log*
+*.log
+.DS_Store
+Thumbs.db
+
+# Test and tooling output
+coverage/
+.nyc_output/
+*.tsbuildinfo
+
+# Local agent configuration
+.claude/settings.local.json
+.opencode/
+
+# Editors
+.vscode/
+.idea/

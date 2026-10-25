@@ -1,0 +1,66 @@
+{
+  "name": "conventional-commits-skill",
+  "version": "1.0.0",
+  "description": "Strict Conventional Commits 1.0.0 enforcement for OpenCode, Claude Code, and Codex: system prompt guidance, a validator tool, a /commit command, and changelog plus SemVer helpers.",
+  "keywords": [
+    "conventional-commits",
+    "commit-message",
+    "semver",
+    "changelog",
+    "opencode",
+    "opencode-plugin",
+    "claude-code",
+    "claude-code-plugin",
+    "codex",
+    "codex-skill",
+    "agent-skill"
+  ],
+  "homepage": "https://github.com/theshoqanebi/conventional-commits-skill#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theshoqanebi/conventional-commits-skill.git"
+  },
+  "bugs": {
+    "url": "https://github.com/theshoqanebi/conventional-commits-skill/issues"
+  },
+  "author": "theshoqanebi",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./engine": "./skills/conventional-commits/scripts/conventional-commits.mjs",
+    "./cli": "./skills/conventional-commits/scripts/cli.mjs"
+  },
+  "bin": {
+    "conventional-commits": "./bin/conventional-commits.mjs"
+  },
+  "files": [
+    "bin",
+    "commands",
+    "hooks",
+    "skills",
+    "src",
+    ".claude-plugin",
+    "AGENTS.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "typecheck": "tsc --noEmit",
+    "changelog": "node skills/conventional-commits/scripts/cli.mjs changelog",
+    "bump": "node skills/conventional-commits/scripts/cli.mjs bump",
+    "install-hooks": "node skills/conventional-commits/scripts/install.mjs",
+    "uninstall-hooks": "node skills/conventional-commits/scripts/install.mjs --uninstall"
+  },
+  "dependencies": {
+    "@opencode/plugin": "^2.1.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "typescript": "^5.7.3"
+  }
+}

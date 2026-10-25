@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Node ${{ matrix.node }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: [22, 24]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      - name: Validate the git commit-msg hook end to end
+        shell: bash
+        run: |
+          repo="$(mktemp -d)"
+          git -C "$repo" init -q
+          git -C "$repo" config user.name CI
+          git -C "$repo" config user.email ci@example.com
+          node skills/conventional-commits/scripts/install.mjs --dir "$repo"
+          echo one > "$repo/a.txt"
+          git -C "$repo" add a.txt
+          if git -C "$repo" commit -m "feat add parser" 2>/dev/null; then
+            echo "expected the invalid commit to be rejected"
+            exit 1
+          fi
+          git -C "$repo" commit -q -m "feat: add parser"
+          git -C "$repo" log --oneline | grep -q "feat: add parser"
+          rm -rf "$repo"
+
+  check-commits:
+    name: Conventional Commits
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Validate every commit in the pull request
+        shell: bash
+        run: |
+          failed=0
+          while IFS= read -r sha; do
+            message="$(git log -1 --format=%B "$sha")"
+            if ! node skills/conventional-commits/scripts/cli.mjs validate -m "$message"; then
+              echo "::error::commit $sha does not follow Conventional Commits"
+              failed=1
+            fi
+          done < <(git rev-list "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}")
+          exit "$failed"
